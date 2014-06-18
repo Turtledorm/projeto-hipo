@@ -1,11 +1,6 @@
 Projeto Hipo - Changelog
 ========================
 
-##### TODO:
-  - Organizar o circuito principal.
-  - Colocar labels.
-  - Fazer mais testes.
-
 Terceira parte
 --------------
 
@@ -13,3 +8,6 @@ Terceira parte
 
 ###### 11/06:
   - Projeto funcionando! As instruções pedidas no EP estão funcionando corretamente.
+
+###### 17/06:
+  - Os circuitos foram melhor organizados, ficando visualmente mais limpos.
