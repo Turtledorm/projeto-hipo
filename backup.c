@@ -38,9 +38,9 @@ const struct
 void converte(int n, char linhas[][MAXLEN], int cod[], int end[])
 {
     int i, j;
-    int pos = 0;
 
     for (i = 0; i < n; i++) {
+        
         char sigla[MNE_SIZE+1] = "";
         strncpy(sigla, linhas[i], 3);
         for (j = 0; j < NUM_INST; j++) {
@@ -69,7 +69,7 @@ void converte(int n, char linhas[][MAXLEN], int cod[], int end[])
 int leArquivo(char nome[], char linhas[][MAXLEN])
 {
     int i;
-    FILE *arq = fopen(nome, "r");;
+    FILE *arq = fopen(nome, "r");
 
     if (arq == NULL) {
         fprintf(stderr, "ERRO: Arquivo \"%s\" indisponível\n", nome);
@@ -80,6 +80,22 @@ int leArquivo(char nome[], char linhas[][MAXLEN])
 
     fclose(arq);
     return i;
+}
+
+/*------------------------------------------------------------------*
+ *
+ * Pula comentários (iniciados com '#') na leitura do arquivo PPM.
+ *
+ */
+void ignoraComentario(FILE *file)
+{
+    while (getc(file) == '\n');
+    fseek(file, -1, SEEK_CUR);
+
+    if (getc(file) == ';') {
+        while (getc(file) != '\n');
+    }
+    else fseek(file, -1, SEEK_CUR);
 }
 
 /*-------------------------------------------------------------------*
