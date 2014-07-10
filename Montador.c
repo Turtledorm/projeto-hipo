@@ -7,7 +7,6 @@
  |   D E F I N I Ç Õ E S   |
  *-------------------------*/
 
-#define MAX      256  /* número máximo de endereços (linhas) */
 #define NUM_INST  19  /* nº de instruções distintas no HIPO */
 #define MNE_SIZE   3  /* tamanho de uma sigla mnemônica */
 
@@ -24,38 +23,40 @@ const struct
     {55, "JEQ"}, {56, "JLT"}, {57, "JGE"}, {70, "STP"}
 };
 
-FILE *arqEntrada, *arqSaida; /* Arquivos de entrada e saída */
+/* Arquivos de entrada e saída */
+FILE *arqEntrada, *arqSaida;
 
 /*-------------------*
  |   F U N Ç Õ E S   |
  *-------------------*/
 
-void analisa();
+void leitura();
 bool ignoraComentario();
 void verifica();
-void converteInst();
+void converteInstancia();
 void converteDado();
 void mostreUso();
 
 /*-------------------------------------------------------------------*
  */
-void analisa()
+void leitura()
 {
     int posLida, posAt = 0;
 
     while (!feof(arqEntrada)) {
         while (ignoraComentario());
+        fgetc(arqEntrada);
+        fgetc(arqEntrada);
+        if (feof(arqEntrada)) break;
+        fseek(arqEntrada, -2, SEEK_CUR);
         fscanf(arqEntrada, "%d", &posLida);
-        printf("Atual = %d, Lido = %d\n", posAt, posLida);
         if (posAt < posLida) {
             for (; posAt < posLida; posAt++) {
                 fprintf(arqSaida, "0000\n");
             }
         }
-        
         verifica();
         posAt++;
-        
     }
 }
 
@@ -85,8 +86,8 @@ bool ignoraComentario()
  */
 void verifica()
 {
-    if (fgetc(arqEntrada) != ' ') fseek(arqEntrada, -1, SEEK_CUR);
-    fgetc(arqEntrada) == '{' ? converteInst()
+    fgetc(arqEntrada); /* Lê o ' ' */
+    fgetc(arqEntrada) == '{' ? converteInstancia()
                              : converteDado();
 }
 
@@ -97,11 +98,10 @@ void verifica()
  *  endereço, ambos em números de até dois dígitos decimais.
  *
  */
-void converteInst()
+void converteInstancia()
 {
-    int codigo;
-    int endereco;
-    int j;
+    int codigo, endereco;
+    int i;
 
     /* Lê instrução */
     char sigla[MNE_SIZE+1] = "";
@@ -109,19 +109,20 @@ void converteInst()
     fgetc(arqEntrada); /* Lê o '}' */
 
     /* Traduz instrução */
-    for (j = 0; j < NUM_INST; j++) {
-        if (strcmp(sigla, mnemon[j].sigla) == 0) break;
+    for (i = 0; i < NUM_INST; i++) {
+        if (strcmp(sigla, mnemon[i].sigla) == 0) break;
     }
-    if (j == NUM_INST) {
+    if (i == NUM_INST) {
         fprintf(stderr, "ERRO: Instrução \"%s\" não reconhecida\n", sigla);
         exit(EXIT_FAILURE);
     }
-    codigo = mnemon[j].codigo;
+    codigo = mnemon[i].codigo;
     
-    fscanf(arqEntrada, "%d", &endereco);
+    if (codigo != 70) fscanf(arqEntrada, "%d", &endereco);
 
     fprintf(arqSaida, "%02X", codigo);
-    fprintf(arqSaida, "%02X\n", endereco);
+    if (codigo != 70) fprintf(arqSaida, "%02X\n", endereco);
+    else              fprintf(arqSaida, "00\n");
 }
 
 /*-------------------------------------------------------------------*
@@ -148,8 +149,8 @@ void converteDado()
 void mostreUso(char *nomePrograma)
 {
     fprintf(stderr,
-        "Uso: %s [nome-entrada] [nome-dec] [nome-hex]\n"
-        "Ex:  %s entrada.txt dec.txt hex.txt\n", 
+        "Uso: %s [nome-entrada] [nome-hex]\n"
+        "Ex:  %s entrada.txt hex.txt\n", 
             nomePrograma, nomePrograma);
     exit(EXIT_FAILURE); 
 }
@@ -166,7 +167,7 @@ int main(int argc, char **argv)
 
     arqEntrada = fopen(argv[1], "r");
     arqSaida   = fopen(argv[2], "w");
-    analisa();
+    leitura();
 
     fclose(arqEntrada);
     fclose(arqSaida);

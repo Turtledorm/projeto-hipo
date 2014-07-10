@@ -1,6 +1,0 @@
-00 {LDA} 10 ; sou um comentário feliz
-;
-02 {STA} 12
-03 +7777
-;
-05 -8000
