@@ -1,0 +1,27 @@
+; Teste 2 - m.d.c. de A e B
+;
+; Endereços:
+; - 20: Valor de A
+; - 21: Valor de B
+; - 22: Valor de A % B
+;
+; Lê A e B
+00 {INN} 20
+01 {INN} 21
+; --- Início do LOOP ---
+; Calcula A % B
+02 {LDA} 20
+03 {REM} 21
+04 {STA} 22
+; Novo A = Antigo B
+05 {LDA} 21
+06 {STA} 20
+; Novo B = Antigo resto
+07 {LDA} 22
+08 {STA} 21
+; --- Fim do LOOP ---
+; Se B não for zero, repete loop acima
+09 {JDZ} 02
+; Ao chegar aqui, achou-se o m.d.c.
+10 {PRN} 20
+11 {STP}

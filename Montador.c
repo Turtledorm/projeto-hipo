@@ -43,6 +43,7 @@ void leitura()
 {
     int posLida, posAt = 0;
 
+    fprintf(arqSaida, "v2.0 raw\n");
     while (!feof(arqEntrada)) {
         while (ignoraComentario());
         fgetc(arqEntrada);
@@ -52,12 +53,14 @@ void leitura()
         fscanf(arqEntrada, "%d", &posLida);
         if (posAt < posLida) {
             for (; posAt < posLida; posAt++) {
-                fprintf(arqSaida, "0000\n");
+                fprintf(arqSaida, "0000 ");
             }
         }
         verifica();
         posAt++;
     }
+    fprintf(arqSaida, "\n");
+
 }
 
 /*------------------------------------------------------------------*
@@ -121,8 +124,8 @@ void converteInstancia()
     if (codigo != 70) fscanf(arqEntrada, "%d", &endereco);
 
     fprintf(arqSaida, "%02X", codigo);
-    if (codigo != 70) fprintf(arqSaida, "%02X\n", endereco);
-    else              fprintf(arqSaida, "00\n");
+    if (codigo != 70) fprintf(arqSaida, "%02X ", endereco);
+    else              fprintf(arqSaida, "00 ");
 }
 
 /*-------------------------------------------------------------------*
@@ -137,7 +140,7 @@ void converteDado()
     int dado;
 
     fscanf(arqEntrada, "%d", &dado);
-    fprintf(arqSaida, "%04X\n", dado & 0xffff);
+    fprintf(arqSaida, "%04X ", dado & 0xffff);
 }
 
 /*-------------------------------------------------------------------*
