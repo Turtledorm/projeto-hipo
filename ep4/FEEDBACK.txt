@@ -1,0 +1,37 @@
+/*************************************************************************
+
+    >>> MAC0329 (Álgebra Booleana e Aplicações)
+    Professor: Junior Barrera
+
+    Grupo:
+    > Daniel Toshio Iwamoto   - nº USP: 8516782
+    > Gustavo Chicato Wandeur - nº USP: 7557797
+    > Leonardo Pereira Macedo - nº USP: 8536065
+
+*************************************************************************/
+
+
+*****************************
+    FEEDBACK DOS PROJETOS
+*****************************
+
+    O projeto, em geral, foi trabalhoso e longo, mas muito interessante e
+satisfatório, ajudando a entender melhor alguns dos conceitos da matéria.
+
+    O programa utilizado, o Logisim, foi bem prático, mesmo com os bugs que
+infelizmente possui. Aprender a mexer nele foi um dos maiores desafios do
+grupo. Isso explica a dificuldade que tivemos no EP 2, quando sabíamos pouco
+sobre como manejar o programa. Os outros EPs foram mais tranquilos para se
+fazer.
+
+    As apresentações das fases ao professor foram uma boa ideia, por criar
+algo mais interativo do que apenas entregar um arquivo e, muitas vezes,
+não ter um feedback.
+
+    Nossas sugestões para melhorar o projeto para os próximos anos são:
+
+    - Dar pelo menos uma aula de Logisim no começo do semestre, explicando
+o básico do programa.
+
+    - Incentivar o uso do Paca para a troca de ideias e como meio de se
+comunicar com o professor.

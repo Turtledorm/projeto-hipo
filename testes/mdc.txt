@@ -1,0 +1,28 @@
+; Teste 2 - m.d.c. de A e B (A >= 0, B > 0)
+;
+; --- Endereços: ---
+; - 20: Valor de A
+; - 21: Valor de B
+; - 22: Valor de A % B
+;
+;------------------------------------------
+;
+; Inicialização
+00 {INN} 20
+01 {INN} 21
+;
+; Loop
+02 {LDA} 20
+03 {REM} 21
+04 {STA} 22
+05 {LDA} 21
+06 {STA} 20
+07 {LDA} 22
+08 {STA} 21
+;
+; Condição
+09 {JDZ} 02
+;
+; Fim
+10 {PRN} 20
+11 {STP}

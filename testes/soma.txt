@@ -1,0 +1,21 @@
+; Teste 1 - Soma até o resultado dar 0
+;
+; --- Endereços: ---
+; - 20: Último número lido
+; - 21: Valor da soma
+;
+;------------------------------------------
+;
+; Inicialização
+00 {INN} 20
+;
+; Loop
+01 {LDA} 21
+02 {ADD} 20
+03 {STA} 21
+;
+; Condição
+04 {JDZ} 00
+;
+; Fim
+05 {STP}
